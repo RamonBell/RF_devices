@@ -1,0 +1,38 @@
+The state_topic is always: "tele/RF_Bridge/RESULT"
+If single code then put off after the code on the payload off.
+
+Device classes I know of:
+  - smoke
+  - motion
+  - door
+
+Smoke detectors:
+  - platform: mqtt
+    name: "Garage Smoke detector"
+    state_topic: "tele/RF_Bridge/RESULT"
+    value_template: '{{value_json.RfReceived.Data}}'
+    payload_on: "63E986"
+    payload_off: "63E986off"
+    device_class: smoke
+    off_delay: 15
+    
+Motion detectors:
+   - platform: mqtt
+     state_topic: "tele/RF_Bridge/RESULT"
+     name: 'Driveway Motion'
+     value_template: '{{value_json.RfReceived.Data}}'
+     payload_on: '74639A'
+     payload_off: '74639Aoff'
+     device_class: motion
+     off_delay: 10
+     qos: 1
+     
+Doors:
+   - platform: mqtt
+     name: "Big FreezerDoor"
+     state_topic: "tele/RF_Bridge/RESULT"
+     value_template: '{{value_json.RfReceived.Data}}'
+     payload_on: "428929"
+     payload_off: "428929off"
+     device_class: door
+     off_delay: 5
